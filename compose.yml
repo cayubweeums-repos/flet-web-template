@@ -1,0 +1,18 @@
+services:
+  frontend:
+    container_name: flet-frontend
+    build: ./
+    restart: unless-stopped
+    volumes:
+      - ./:/app
+    ports:
+      - "5554:5554"
+
+  backend:
+    image: appwrite/appwrite:1.6.0
+    container_name: appwrite-backend
+    entrypoint: install
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./appwrite:/usr/src/code/appwrite
+    restart: unless-stopped
